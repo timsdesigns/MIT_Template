@@ -1,0 +1,42 @@
+{
+    // ---------------------------------------------------------------------------
+    // Debugging this Grasshopper plugin (.gha) on macOS *and* Windows.
+    //
+    // A .gha is a class library with NO entry point, so it cannot be "run".
+    // Instead we launch RHINO as the program, point it at the freshly built
+    // plugin via RHINO_PACKAGE_DIRS, run _Grasshopper, and let the .NET (coreclr)
+    // debugger attach to Rhino so breakpoints bind.
+    //
+    // Requires the C# extension (ms-dotnettools.csharp). The "build" preLaunchTask
+    // is defined in .vscode/tasks.json. Adjust the Rhino program paths if needed.
+    // ---------------------------------------------------------------------------
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Rhino 8 - Grasshopper (template)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "",
+            "osx": {
+                "program": "/Applications/Rhino 8.app/Contents/MacOS/Rhinoceros",
+                "args": [
+                    "-runscript=_Grasshopper"
+                ]
+            },
+            "windows": {
+                "program": "C:\\Program Files\\Rhino 8\\System\\Rhino.exe",
+                "targetArchitecture": "x86_64",
+                "args": "/netcore /runscript=\"_Grasshopper\""
+            },
+            "env": {
+                // Folder Rhino scans for plugins -> the build output of THIS project,
+                // so the exact .gha you just built is the one that loads.
+                "RHINO_PACKAGE_DIRS": "${workspaceFolder}/bin/Debug/net8.0"
+            },
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        }
+    ]
+}

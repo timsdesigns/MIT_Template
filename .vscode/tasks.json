@@ -1,0 +1,27 @@
+{
+    // Build task referenced by .vscode/launch.json (preLaunchTask: "build").
+    // Single-project template, so no edition picker is needed - we just build
+    // the one .csproj in this folder. 'dotnet build <folder>' resolves it.
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "-clp:NoSummary",
+                "${workspaceFolder}"
+            ],
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

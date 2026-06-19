@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <!--
+        Minimal Grasshopper plugin template.
+        - net8.0 only  => identical behaviour on Windows and macOS (Rhino 8+).
+        - <TargetExt>.gha => output is loaded by Grasshopper as a plugin.
+        - Grasshopper package is compile-only: Rhino provides it at runtime,
+          so it is NOT copied next to the .gha (IncludeAssets="compile;build").
+        - No Costura/extra deps on purpose: keep the template clean and MIT-clear.
+    -->
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Version>1.0.0</Version>
+        <Title>MIT_Template</Title>
+        <Description>Minimal MIT-licensed Grasshopper plugin template (.NET 8, cross-platform).</Description>
+        <TargetExt>.gha</TargetExt>
+        <NoWarn>NU1701;NETSDK1086</NoWarn>
+        <AssemblyName>MIT_Template</AssemblyName>
+        <RootNamespace>MIT_Template</RootNamespace>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Grasshopper" Version="8.6.24101.5001" IncludeAssets="compile;build" />
+        <PackageReference Include="System.Drawing.Common" Version="8.0.11" />
+    </ItemGroup>
+
+</Project>

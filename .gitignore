@@ -1,0 +1,19 @@
+## .NET / Visual Studio build output
+bin/
+obj/
+*.user
+*.suo
+
+## Rider
+.idea/
+*.csproj.lscache
+
+## VS Code (keep shared debug config below, ignore the rest)
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+
+## OS
+.DS_Store
+Thumbs.db

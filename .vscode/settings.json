@@ -1,0 +1,6 @@
+{
+    // Load this project directly and avoid the Roslyn "file-based programs"
+    // BuildHost path, which can crash the C# extension host on loose .cs files.
+    "dotnet.projects.enableFileBasedPrograms": false,
+    "dotnet.defaultSolution": "MIT_Template.csproj"
+}
