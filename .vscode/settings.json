@@ -1,6 +1,10 @@
 {
     // Load this project directly and avoid the Roslyn "file-based programs"
     // BuildHost path, which can crash the C# extension host on loose .cs files.
+    // The BuildHost subprocess connects over a named pipe; when that connect is
+    // denied it crash-loops on loose .cs files and destabilizes the extension
+    // host. Disabling both the feature and its auto-discovery avoids that path.
     "dotnet.projects.enableFileBasedPrograms": false,
+    "dotnet.fileBasedApps.enableAutomaticDiscovery": false,
     "dotnet.defaultSolution": "MIT_Template.csproj"
 }

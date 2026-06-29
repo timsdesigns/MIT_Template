@@ -9,10 +9,14 @@
     //
     // Requires the C# extension (ms-dotnettools.csharp). The "build" preLaunchTask
     // is defined in .vscode/tasks.json. Adjust the Rhino program paths if needed.
+    //
+    // The second configuration adds a ${input:workbench} picker (defined under
+    // "inputs" at the bottom) that auto-opens a chosen .ghx from DebugWorkbench.
     // ---------------------------------------------------------------------------
     "version": "0.2.0",
     "configurations": [
         {
+            // Just opens Grasshopper (no workbench file).
             "name": "Rhino 8 - Grasshopper (template)",
             "type": "coreclr",
             "request": "launch",
@@ -36,7 +40,51 @@
             },
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
-            "console": "internalConsole"
+            "console": "internalConsole",
+            "hotReloadOnSave": { "enabled": true }
+        },
+        {
+            // Picks a WORKBENCH; opens the chosen .ghx on start.
+            "name": "Rhino 8 - Grasshopper + Workbench (template, pick file)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "",
+            "osx": {
+                "program": "/Applications/Rhino 8.app/Contents/MacOS/Rhinoceros",
+                "args": [
+                    "-nosplash",
+                    "-notemplate",
+                    "-runscript=_-Grasshopper _Document _Open \"${workspaceFolder}/DebugWorkbench/${input:workbench}\" _Enter"
+                ]
+            },
+            "windows": {
+                "program": "C:\\Program Files\\Rhino 8\\System\\Rhino.exe",
+                "targetArchitecture": "x86_64",
+                "args": "-nosplash -notemplate /netcore /runscript=\"_-Grasshopper _Document _Open \"\"${workspaceFolder}\\DebugWorkbench\\${input:workbench}\"\" _Enter\""
+            },
+            "env": {
+                "RHINO_PACKAGE_DIRS": "${workspaceFolder}/bin/Debug/net8.0"
+            },
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "hotReloadOnSave": { "enabled": true }
+        }
+    ],
+    // ---------------------------------------------------------------------------
+    // PICKER. ${input:workbench} value = a file name inside DebugWorkbench.
+    // To add a workbench, drop the .ghx in that folder and add its name here.
+    // ---------------------------------------------------------------------------
+    "inputs": [
+        {
+            "id": "workbench",
+            "type": "pickString",
+            "description": "Which DebugWorkbench file to open?",
+            "default": "Workbench_empty.ghx",
+            "options": [
+                "Workbench_empty.ghx"
+            ]
         }
     ]
 }
